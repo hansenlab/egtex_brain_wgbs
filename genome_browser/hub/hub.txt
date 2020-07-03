@@ -1,0 +1,6 @@
+hub eGTEx_brain_hub
+shortLabel eGTExBrainHub
+longLabel DNA methylation data from eGTEx.
+genomesFile genomes.txt
+email peter.hickey@gmail.com
+descriptionUrl https://s3.us-east-2.amazonaws.com/egtex-wgbs/hg38/docs/README.html

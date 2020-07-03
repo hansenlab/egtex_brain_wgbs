@@ -1,0 +1,246 @@
+# mCG --------------------------------------------------------------------------
+
+# TODO: Consider a different breakdown of tracks (via use of dropdown options).
+#       Unlike with the BrainEpigenome, here we only have 1 assay
+
+track WGBS_mCG
+compositeTrack on
+visibility full
+# NOTE: "[A-Z]_" prefix on subGroup tags is to manually set sortOrder
+subGroup1 view Views \
+  A_mCG=mCG \
+  B_CG-DMR=Differentially_methylated_regions
+# TODO: Remove unused subGroup2 levels.
+subGroup2 NeuN NeuN_status \
+  A_pos=NeuN+ \
+  B_neg=NeuN- \
+  C_unsorted=Unsorted \
+  D_union=Union \
+  E_NA=Not_applicable
+subGroup3 Tissue Brain_region \
+  A_BRNCTXB=Brain_Frontal_Cortex_BA9 \
+  B_BRNACC=Brain_Anterior_cingulate_cortex_BA24 \
+  C_BRNHPP=Brain_Hippocampus \
+  E_BRNAMY=Brain_Amygdala \
+  F_BRNHPT=Brain_Hypothalamus \
+  G_BRNNCC=Brain_Nucleus_accumbens_basal_ganglia \
+  H_BRNPTM=Brain_Putamen_basal_ganglia \
+  I_BRNCDT=Brain_Caudate_basal_ganglia \
+  J_Cortical=Cortical \
+  K_Basal_ganglia=Basal_ganglia \
+  L_HC1=HC1 \
+  M_HC2=HC2 \
+  N_NA=Not_applicable
+# TODO: Remove unused subGroup4 levels.
+subGroup4 Comparison Comparison \
+  A_pos=Between_brain_regions_in_NeuN+_samples \
+  B_HC1_vs_HC2=Between_HC1_and_HC2_samples \
+  C_basal_ganglia=Between_basal_ganglia_brain_regions_in_NeuN+_samples \
+  F_NA=Not_applicable
+subGroup5 Smooth Smoothing_bandwidth \
+  A_small=Small \
+  B_large=Large
+dimensions dimX=Tissue dimY=NeuN dimA=Comparison dimB=Smooth
+filterComposite dimA
+filterComposite dimB
+sortOrder NeuN=+ Tissue=+ Comparison=+ Smooth=+ view=+
+type bed 3
+shortLabel WGBS (mCG)
+longLabel Average mCG in each condition and CG-DMRs
+priority 1
+html docs/WGBS
+
+  track DMRs
+  parent WGBS_mCG on
+  shortLabel CG-DMRs
+  longLabel Differentially methylated regions using CpGs (CG-DMRs)
+  view B_CG-DMR
+  visibility squish
+  type bigBed
+  viewUi on
+
+    track CG_DMRs.general
+    parent DMRs on
+    subGroups NeuN=A_pos Tissue=N_NA Smooth=A_small Comparison=A_pos view=B_CG-DMR
+    bigDataUrl general_CG-DMRs.bb
+    shortLabel General CG-DMRs
+    longLabel CG-DMRs between 5 broadly grouped brain regions in NeuN+ samples
+    type bigBed
+
+    track CG_DMRs.hippocampus
+    parent DMRs off
+    subGroups NeuN=A_pos Tissue=C_BRNHPP Smooth=A_small Comparison=C_basal_ganglia view=B_CG-DMR
+    bigDataUrl hippocampus_CG-DMRs.bb
+    shortLabel Hippcampus CG-DMRs
+    longLabel CG-DMRs between 2 groups of hippocampal NeuN+ samples
+    type bigBed
+
+    track CG_DMRs.basal_ganglia
+    parent DMRs off
+    subGroups NeuN=A_pos Tissue=K_Basal_ganglia Smooth=A_small Comparison=B_HC1_vs_HC2 view=B_CG-DMR
+    bigDataUrl basal_ganglia_CG-DMRs.bb
+    shortLabel Basal ganglia CG-DMRs
+    longLabel CG-DMRs between 3 basal ganglia brain regions in NeuN+ samples
+    type bigBed
+
+# TODO: CG-blocks
+
+ track mCG
+  parent WGBS_mCG on
+  shortLabel mCG small smooth
+  longLabel Average mCG (small smooth) in each condition
+  view A_mCG
+  visibility full
+  type bigBed
+  viewUi on
+  viewLimits 0:1
+
+    track Brain_Frontal_Cortex_BA9.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=A_BRNCTXB Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Frontal_Cortex_BA9.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Frontal cortex BA9+)
+    longLabel Average mCG (small smooth) in frontal cortex BA9 (NeuN+) samples
+    type bigWig
+    color 230,171,2
+    maxHeightPixels 100:30:8
+
+    track Brain_Anterior_cingulate_cortex_BA24.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=B_BRNACC Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Anterior_cingulate_cortex_BA24.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Anterior cingulate cortex BA24+)
+    longLabel Average mCG (small smooth) in anterior cingulate cortex BA24 (NeuN+) samples
+    type bigWig
+    color 166,118,29
+    maxHeightPixels 100:30:8
+
+    track Brain_Hippocampus.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=C_BRNHPP Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Hippocampus.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Hippocampus+)
+    longLabel Average mCG (small smooth) in hippocampus (NeuN+) samples
+    type bigWig
+    color 27,158,119
+    maxHeightPixels 100:30:8
+
+    track Brain_Amygdala.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=E_BRNAMY Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Amygdala.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Amygdala+)
+    longLabel Average mCG (small smooth) in amygdala (NeuN+) samples
+    type bigWig
+    color 231,41,138
+    maxHeightPixels 100:30:8
+
+    track Brain_Hypothalamus.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=F_BRNHPT Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Hypothalamus.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Hypothalamus+)
+    longLabel Average mCG (small smooth) in hypothalamus (NeuN+) samples
+    type bigWig
+    color 102,166,30
+    maxHeightPixels 100:30:8
+
+    track Brain_Nucleus_accumbens_basal_ganglia.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=G_BRNNCC Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Nucleus_accumbens_basal_ganglia.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (NAcc+)
+    longLabel Average mCG (small smooth) in NAcc (NeuN+) samples
+    type bigWig
+    color 217,95,2
+    maxHeightPixels 100:30:8
+
+    track Brain_Putamen_basal_ganglia.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=H_BRNPTM Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Putamen_basal_ganglia.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Putamen+)
+    longLabel Average mCG (small smooth) in putamen (NeuN+) samples
+    type bigWig
+    color 117,112,179
+    maxHeightPixels 100:30:8
+
+    track Brain_Caudate_basal_ganglia.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=I_BRNCDT Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Brain_Caudate_basal_ganglia.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Caudate+)
+    longLabel Average mCG (small smooth) in caudate (NeuN+) samples
+    type bigWig
+    color 102,102,102
+    maxHeightPixels 100:30:8
+
+    track Cortical.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=J_Cortical Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Cortical.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Cortical+)
+    longLabel Average mCG (small smooth) in cortical (NeuN+) samples
+    type bigWig
+    color 1,133,113
+    maxHeightPixels 100:30:8
+
+    track Basal_ganglia.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=K_Basal_ganglia Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl Basal_ganglia.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (Basal ganglia+)
+    longLabel Average mCG (small smooth) in basal ganglia (NeuN+) samples
+    type bigWig
+    color 166,97,26
+    maxHeightPixels 100:30:8
+
+    track HC1.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=L_HC1 Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl HC1.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (HC1+)
+    longLabel Average mCG (small smooth) in HC1 (NeuN+) samples
+    type bigWig
+    color 166,206,227
+    maxHeightPixels 100:30:8
+
+    track HC2.mCG.small_smooth
+    parent mCG off
+    subGroups NeuN=A_pos Tissue=M_HC2 Smooth=A_small Comparison=F_NA view=A_mCG
+    bigDataUrl HC2.mCG.small_smooth.bw
+    # TODO: shortLabel is too long
+    # TODO: Use the '+' suffix or is it redundant for eGTEx data?
+    shortLabel mCG small (HC2+)
+    longLabel Average mCG (small smooth) in HC2 (NeuN+) samples
+    type bigWig
+    color 31,120,180
+    maxHeightPixels 100:30:8
+
+    # TODO: Remaining mCG.small_smooth (these should be on by default)
+
+    # 3) Caudate
+
+
