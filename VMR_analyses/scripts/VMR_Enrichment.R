@@ -344,7 +344,7 @@ ref3=capture[which(capture$mQTL_Neuron==TRUE),] #PMID 27153397
 ref4=capture[which(capture$Mill_mQTL==TRUE),] #PMID 26619357
 ref5=capture[which(capture$HC_mQTL==TRUE),]  #PMID 29142228
 features=list("CoRSIV"=CoRSIV,"nVMRs"=pub,"Brain_mQTLs"=ref1,"Glia_mQTLs"=ref2,"Neuron_mQTLs"=ref3,"Mill_mQTL"=ref4,"HC_mQTLs"=ref5)
-
+save(features,file="Fig6B_features_forEnrichment.rda")
 names=names(list_of_VMRs)
 VMRs_OR_df <- bind_rows(
         lapply(names(list_of_VMRs), function(name) {
