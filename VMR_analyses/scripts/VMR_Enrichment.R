@@ -335,8 +335,16 @@ x=as.data.frame(cbind(chr,as.numeric(start),as.numeric(end)))
 colnames(x)=c("chr","start","end")
 CoRSIV=unique(GRanges(x))
 load("/dcl01/FB2/data/personal/gtex/gtex/eGTEx_analysis/VMR/List_of_VMRs.rda") 
+#########
+#### Look at enrichments in mQTL datasets from PMIDS: 26619357,27153397, and 29142228
+capture=readRDS("/dcl01/FB2/data/personal/gtex/gtex/Capture-Nimblegen/mCBrainMap/annotated_capture_cpgs.rds")
+ref1=capture[which(capture$mQTL_Brain==TRUE),] #PMID 27153397
+ref2=capture[which(capture$mQTL_Glia==TRUE),] #PMID 27153397
+ref3=capture[which(capture$mQTL_Neuron==TRUE),] #PMID 27153397
+ref4=capture[which(capture$Mill_mQTL==TRUE),] #PMID 26619357
+ref5=capture[which(capture$HC_mQTL==TRUE),]  #PMID 29142228
+features=list("CoRSIV"=CoRSIV,"nVMRs"=pub,"Brain_mQTLs"=ref1,"Glia_mQTLs"=ref2,"Neuron_mQTLs"=ref3,"Mill_mQTL"=ref4,"HC_mQTLs"=ref5)
 
-features=list("CoRSIV"=CoRSIV,"nVMRs"=pub)
 names=names(list_of_VMRs)
 VMRs_OR_df <- bind_rows(
         lapply(names(list_of_VMRs), function(name) {
