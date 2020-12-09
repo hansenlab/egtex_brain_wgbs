@@ -33,7 +33,7 @@ and 2 bulk (not sorted) non-brain tissues:
 
 Methods for each assay are described in the following documents:
 
-- [**W**hole **G**enome **B**isulfite **S**equencing (WGBS)](https://github.com/hansenlab/egtex_brain_wgbs/blob/master/genome_browser/docs/WGBS.html)
+- [**W**hole **G**enome **B**isulfite **S**equencing (WGBS)](https://github.com/hansenlab/egtex_brain_wgbs/blob/master/genome_browser/docs/WGBS.md)
 
 ## Caveats
 
