@@ -26,14 +26,14 @@ and 2 bulk (not sorted) non-brain tissues:
 
 - Lung 
 - Thyroid
-(https://github.com/HudsonAlpha/singleCell/blob/master/To-do/201016_15d_NPCs-postwash.png)
-<img src="https:/github.com/hansenlab/egtex_brain_wgbs/genome_browser/figures/individual-level_dataset_matrix.pdf" alt="Individual-level dataset matrix" style="width: 600px;"/>
+
+<img src="https:/github.com/hansenlab/egtex_brain_wgbs/blob/master/genome_browser/figures/individual-level_dataset_matrix.pdf" alt="Individual-level dataset matrix" style="width: 600px;"/>
 
 ## Methods
 
 Methods for each assay are described in the following documents:
 
-- [**W**hole **G**enome **B**isulfite **S**equencing (WGBS)](https:/github.com/hansenlab/egtex_brain_wgbs/genome_browser/docs/WGBS.html)
+- [**W**hole **G**enome **B**isulfite **S**equencing (WGBS)](https:/github.com/hansenlab/egtex_brain_wgbs/blob/master/genome_browser/docs/WGBS.html)
 
 ## Caveats
 
