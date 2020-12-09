@@ -27,7 +27,7 @@ and 2 bulk (not sorted) non-brain tissues:
 - Lung 
 - Thyroid
 
-![Individual-level dataset matrix](https:/github.com/hansenlab/egtex_brain_wgbs/blob/master/genome_browser/figures/individual-level_dataset_matrix.pdf)
+![Individual-level dataset matrix](https:/github.com/hansenlab/egtex_brain_wgbs/blob/master/genome_browser/figures/individual-level_dataset_matrix.png)
 
 ## Methods
 
