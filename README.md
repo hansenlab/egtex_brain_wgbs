@@ -1,4 +1,7 @@
 # egtex_brain_wgbs
+
+[![DOI](https://zenodo.org/badge/276696245.svg)](https://zenodo.org/badge/latestdoi/276696245)
+
 eGTEx
 ================
 Analysis of differential DNA methylation and variability in neuronal nuclei isolated from 8 diverse brain regions. Variability analyses were also performed in two somatic tissues (lung, thyroid) to identify regions of common variation shared among diverse tissues.
